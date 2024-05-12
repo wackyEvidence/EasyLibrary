@@ -9,7 +9,7 @@ namespace EasyLibrary.DataAccess.Configurations
         public void Configure(EntityTypeBuilder<PublishingHouseEntity> builder)
         {
             builder.HasKey(ph => ph.Id);
-            builder.Property(ph => ph.Name).IsRequired().HasColumnType("nvarchar(50)");
+            builder.Property(ph => ph.Name).IsRequired().HasColumnType("varchar(50)");
             // Relations
             builder.HasMany(ph => ph.BookTypes).WithOne(bt => bt.PublishingHouse).HasForeignKey(bt => bt.PublishingHouseId).HasPrincipalKey(ph => ph.Id);
             // Indexes

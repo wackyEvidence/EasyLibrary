@@ -18,6 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\EasyLibrary.Application\EasyLibrary.Application.csproj" />
     <ProjectReference Include="..\EasyLibrary.DataAccess\EasyLibrary.DataAccess.csproj" />
   </ItemGroup>
 

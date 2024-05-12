@@ -19,4 +19,8 @@
     <ProjectReference Include="..\EasyLibrary.Core\EasyLibrary.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+  </ItemGroup>
+
 </Project>

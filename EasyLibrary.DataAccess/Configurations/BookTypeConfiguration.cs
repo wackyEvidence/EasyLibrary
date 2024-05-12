@@ -9,10 +9,10 @@ namespace EasyLibrary.DataAccess.Configurations
         public void Configure(EntityTypeBuilder<BookTypeEntity> builder)
         {
             builder.HasKey(bt => bt.Id);
-            builder.Property(bt => bt.Title).IsRequired().HasColumnType("nvarchar(50)");
+            builder.Property(bt => bt.Title).IsRequired().HasColumnType("varchar(50)");
             builder.Property(bt => bt.Binding).HasConversion<int>().IsRequired();
             builder.Property(bt => bt.PublishingYear).IsRequired();
-            builder.Property(bt => bt.ISBN).IsRequired().HasColumnType("nvarchar(17)");
+            builder.Property(bt => bt.ISBN).IsRequired().HasColumnType("varchar(17)");
             builder.Property(bt => bt.PublishingYear).IsRequired();
             builder.Property(bt => bt.Weight).IsRequired(); 
             builder.Property(bt => bt.AvailableForIssuance).IsRequired();
@@ -22,8 +22,8 @@ namespace EasyLibrary.DataAccess.Configurations
             // Indexes 
             builder.HasIndex(bt => bt.Title);
             builder.HasIndex(bt => bt.ISBN);
-            builder.HasIndex(bt => bt.Series);
-            builder.HasIndex(bt => bt.PublishingHouse);
+            builder.HasIndex(bt => bt.SeriesId);
+            builder.HasIndex(bt => bt.PublishingHouseId);
         }
     }
 }

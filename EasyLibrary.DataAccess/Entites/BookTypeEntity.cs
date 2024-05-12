@@ -6,9 +6,9 @@ namespace EasyLibrary.DataAccess.Entites
     {
         public Guid Id { get; set; }
         public string Title { get; set; } = string.Empty;
-        public int PublishingHouseId { get; set; }
+        public Guid PublishingHouseId { get; set; }
         public PublishingHouseEntity PublishingHouse { get; set; } = null!;
-        public int SeriesId { get; set; }
+        public Guid SeriesId { get; set; }
         public BookSeriesEntity Series { get; set; } = null!;
         public List<BookCopyEntity> Copies { get; set; } = new List<BookCopyEntity>();
         public List<BookAuthorEntity> Authors { get; set; } = new List<BookAuthorEntity>();
