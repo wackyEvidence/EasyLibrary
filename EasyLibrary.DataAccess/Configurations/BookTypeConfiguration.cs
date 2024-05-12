@@ -19,6 +19,11 @@ namespace EasyLibrary.DataAccess.Configurations
             builder.Property(bt => bt.TimesIssued).IsRequired();
             builder.Property(bt => bt.AppearanceDate).IsRequired().HasColumnType("date").HasDefaultValue(DateOnly.Parse(DateTime.Now.ToShortDateString()));
             builder.Property(bt => bt.MinAge).IsRequired();
+            // Indexes 
+            builder.HasIndex(bt => bt.Title);
+            builder.HasIndex(bt => bt.ISBN);
+            builder.HasIndex(bt => bt.Series);
+            builder.HasIndex(bt => bt.PublishingHouse);
         }
     }
 }

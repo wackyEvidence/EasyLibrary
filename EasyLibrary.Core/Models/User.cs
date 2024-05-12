@@ -6,8 +6,8 @@
         public const int PASSPORT_NUMBER_LENGTH = 6;
         public const int PHONE_NUMBER_LENGTH = 16;
 
-        private User(Guid id, string name, string surname, string patronymic, string passportNumber,
-            string passportSeries, DateOnly birthDate, DateOnly registrationDate, string? email, 
+        private User(Guid id, string name, string surname, string? patronymic, string passportNumber,
+            string passportSeries, DateOnly birthDate, DateOnly registrationDate, string email, 
             string phoneNumber, bool isAdmin)
         {
             Id = id;
@@ -31,12 +31,12 @@
         public string PassportSeries { get; } = string.Empty;
         public DateOnly BirthDate { get; }
         public DateOnly RegistrationDate { get; } = DateOnly.Parse(DateTime.Now.ToShortDateString());
-        public string? Email { get; }
+        public string Email { get; } = string.Empty;
         public string PhoneNumber { get; } = string.Empty;
         public bool IsAdmin { get; }
 
-        public static User Create(Guid id, string name, string surname, string patronymic, string passportNumber,
-            string passportSeries, DateOnly birthDate, DateOnly registrationDate, string? email,
+        public static User Create(Guid id, string name, string surname, string? patronymic, string passportNumber,
+            string passportSeries, DateOnly birthDate, DateOnly registrationDate, string email,
             string phoneNumber, bool isAdmin)
         {
             if (string.IsNullOrEmpty(name))

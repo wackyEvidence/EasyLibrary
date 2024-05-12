@@ -10,7 +10,10 @@ namespace EasyLibrary.DataAccess.Configurations
         {
             builder.HasKey(bs => bs.Id); 
             builder.Property(bs => bs.Name).IsRequired().HasColumnName("nvarchar(50)");
+            // Relations 
             builder.HasMany(bs => bs.BookTypes).WithOne(bt => bt.Series).HasForeignKey(bt => bt.SeriesId).HasPrincipalKey(bs => bs.Id);
+            // Indexes
+            builder.HasIndex(bs => bs.Name).IsUnique();
         }
     }
 }
