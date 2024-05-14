@@ -20,7 +20,7 @@ builder.Services.AddScoped<IUsersRepository, UsersRepository>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-
+app.UseStaticFiles();
 app.UseAuthorization();
 app.UseCors(builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 app.MapControllers();
