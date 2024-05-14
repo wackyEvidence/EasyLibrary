@@ -30,7 +30,7 @@
         public string PassportNumber { get; } = string.Empty;
         public string PassportSeries { get; } = string.Empty;
         public DateOnly BirthDate { get; }
-        public DateOnly RegistrationDate { get; } = DateOnly.Parse(DateTime.Now.ToShortDateString());
+        public DateOnly RegistrationDate { get; }
         public string Email { get; } = string.Empty;
         public string PhoneNumber { get; } = string.Empty;
         public bool IsAdmin { get; }
@@ -38,7 +38,7 @@
         public static User Create(Guid id, string name, string surname, string? patronymic, string passportNumber,
             string passportSeries, DateOnly birthDate, DateOnly registrationDate, string email,
             string phoneNumber, bool isAdmin)
-        {
+        { 
             if (string.IsNullOrEmpty(name))
                 throw new ArgumentException("name was null or empty");
 

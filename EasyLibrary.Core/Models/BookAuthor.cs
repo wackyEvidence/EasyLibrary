@@ -2,7 +2,7 @@
 {
     public class BookAuthor
     {
-        private BookAuthor(Guid id, string name, string bio, List<BookType>? bookTypes)
+        private BookAuthor(Guid id, string name, string bio, List<BookType> bookTypes)
         {
             Id = id;
             Name = name;

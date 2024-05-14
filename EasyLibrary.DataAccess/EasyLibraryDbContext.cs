@@ -8,8 +8,7 @@ namespace EasyLibrary.DataAccess
     {
         public EasyLibraryDbContext(DbContextOptions<EasyLibraryDbContext> options) : base(options) 
         {
-            Database.EnsureDeleted();
-            Database.EnsureCreated();
+
         }
 
         public DbSet<BookTypeEntity> BookTypes { get; set; }

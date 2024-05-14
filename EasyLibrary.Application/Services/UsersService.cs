@@ -22,13 +22,13 @@ namespace EasyLibrary.Application.Services
             return await _usersRepository.Create(user);
         }
 
-        public async Task<Guid> UpdateBook(Guid id, string name, string surname, string patronymic, string passportNumber,
-            string passportSeries, DateOnly birthDate, string? email, string phoneNumber, bool isAdmin)
+        public async Task<Guid> UpdateUser(Guid id, string name, string surname, string? patronymic, string passportNumber,
+            string passportSeries, DateOnly birthDate, string email, string phoneNumber, bool isAdmin)
         {
             return await _usersRepository.Update(id, name, surname, patronymic, passportNumber, passportSeries, birthDate, email, phoneNumber, isAdmin);
         }
 
-        public async Task<Guid> DeleteBook(Guid id)
+        public async Task<Guid> DeleteUser(Guid id)
         {
             return await _usersRepository.Delete(id);
         }

@@ -50,8 +50,8 @@ namespace EasyLibrary.DataAccess.Repositories
         }
 
         public async Task<Guid> Update(
-        Guid id, string name, string surname, string patronymic, string passportNumber,
-            string passportSeries, DateOnly birthDate, string? email, string phoneNumber, bool isAdmin)
+        Guid id, string name, string surname, string? patronymic, string passportNumber,
+            string passportSeries, DateOnly birthDate, string email, string phoneNumber, bool isAdmin)
         {
             await _context.Users
                     .Where(u => u.Id == id)
