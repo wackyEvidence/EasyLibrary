@@ -7,8 +7,8 @@ const Home = () => {
                 <div className="filter-by">
                     <h3 className="ps-5">Категория</h3>
                     <div class="btn-group-vertical ps-5" role="group" aria-label="Basic radio toggle button group">
-                        <input type="radio" className="btn-check" name="category" id="btnradio0" autocomplete="off" checked />
-                        <label className="btn text-start" for="btnradio1">Все</label>
+                        <input type="radio" className="btn-check" name="category" id="btnradio0" autocomplete="off" />
+                        <label className="btn text-start" for="btnradio0">Все</label>
 
                         <input type="radio" className="btn-check" name="category" id="btnradio1" autocomplete="off" />
                         <label className="btn text-start" for="btnradio1">Художественная литература</label>
