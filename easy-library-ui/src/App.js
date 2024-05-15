@@ -1,7 +1,12 @@
+import Navbar from "./Components/Navbar";
+import Home from "./pages/Home";
+
 function App() {
   return (
+
     <div className="App">
-      <p className="mx-auto">Hello world!</p>
+      <Navbar></Navbar>
+      <Home></Home>
     </div>
   );
 }
