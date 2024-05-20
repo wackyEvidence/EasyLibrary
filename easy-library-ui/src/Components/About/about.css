@@ -1,7 +1,7 @@
 .about-wrapper { 
     width: 100%;
     min-height: 100vh;
-    background: linear-gradient(rgba(43,48,53, 0.7), rgba(43, 48, 53, 0.7)), url('../../assets/about-bg.png');
+    background: linear-gradient(rgba(43,48,53, 0.7), rgba(43, 48, 53, 0.7)), url('../../../assets/about-bg.png');
     background-size: cover;
     background-position: center;
 }

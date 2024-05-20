@@ -1,0 +1,5 @@
+.modal-dialog { 
+    border: 1px #E2D4BA solid; 
+    border-radius: 10px;
+    z-index: 2;
+}
