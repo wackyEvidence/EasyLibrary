@@ -1,6 +1,7 @@
 ﻿using EasyLibrary.Core.Models;
 using EasyLibrary.DataAccess.Entites;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging.Abstractions;
 
 namespace EasyLibrary.DataAccess.Repositories
 {
@@ -11,6 +12,17 @@ namespace EasyLibrary.DataAccess.Repositories
         public UsersRepository(EasyLibraryDbContext context)
         {
             _context = context;
+        }
+
+        public async Task<User?> GetById(Guid id)
+        {
+            var user = await _context.Users.Where(u => u.Id == id).FirstOrDefaultAsync();
+            
+            return user == null?
+                null : 
+                User.Create(user.Id, user.Name, user.Surname, user.Patronymic, user.PassportNumber,
+                    user.PassportSeries, user.BirthDate, user.RegistrationDate, user.Email,
+                    user.PhoneNumber, user.IsAdmin);
         }
 
         public async Task<List<User>> Get()

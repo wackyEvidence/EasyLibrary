@@ -1,7 +1,7 @@
 ﻿using EasyLibrary.API.Contracts;
 using EasyLibrary.Application.Services;
 using Microsoft.AspNetCore.Mvc;
-using EasyLibrary.Core.Models;
+using Microsoft.Extensions.Primitives;
 
 namespace EasyLibrary.API.Controllers
 {
@@ -15,12 +15,78 @@ namespace EasyLibrary.API.Controllers
             _usersService = usersService;
         }
 
+        [HttpGet("{id:guid}")]
+        public async Task<ActionResult<UserResponseFull>> GetById(Guid id)
+        {
+            try
+            {
+                var user = await _usersService.GetUserById(id);
+                var response = new UserResponseFull(
+                        user.Id,
+                        user.Name,
+                        user.Surname,
+                        user.Patronymic,
+                        user.PassportNumber,
+                        user.PassportSeries,
+                        user.BirthDate,
+                        user.RegistrationDate,
+                        user.PhoneNumber,
+                        user.Email,
+                        user.IsAdmin
+                    );
+
+                return Ok(response);
+            }
+            catch (Exception e)
+            {
+                return NotFound(e.Message);
+            }
+        }
+
         [HttpGet] 
-        public async Task<ActionResult<List<UserResponse>>> GetAllUsers()
+        public async Task<ActionResult<List<UserResponseDisplay>>> GetAllUsers()
         {
             var users = await _usersService.GetAllUsers();
-            var response = users.Select(u => new UserResponse(u.Id, u.Name, u.Surname, u.Patronymic, u.Email));
-            return Ok(response);
+            
+            if (Request.Headers.TryGetValue("Type", out StringValues typeHeader))
+            {
+                if (typeHeader == "full")
+                {
+                    var response = users.Select(u => new UserResponseFull(
+                        u.Id,
+                        u.Name,
+                        u.Surname,
+                        u.Patronymic,
+                        u.PassportNumber,
+                        u.PassportSeries,
+                        u.BirthDate,
+                        u.RegistrationDate,
+                        u.PhoneNumber,
+                        u.Email,
+                        u.IsAdmin
+                    ));
+
+                    return Ok(response);
+                }
+                else if (typeHeader == "display")
+                {
+                    var response = users.Select(u => new UserResponseDisplay(
+                        u.Id,
+                        u.Name,
+                        u.Surname,
+                        u.Patronymic,
+                        u.Email,
+                        u.RegistrationDate,
+                        u.IsAdmin
+                    ));
+
+                    return Ok(response);
+                }
+                else
+                    return BadRequest("Unexpected \"Type\" header value");
+            }
+            else
+                return BadRequest("Expected \"Type\" header");
         }
 
         [HttpPost]

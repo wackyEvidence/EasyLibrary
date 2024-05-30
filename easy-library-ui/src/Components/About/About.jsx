@@ -6,7 +6,7 @@ const About = () => {
         <div className='about-wrapper'>
             <div className="container">
                 <h1 className='display-3 text-center pt-4'>Новая библиотека в Тюмени<br></br>
-                    <small class="text-body-secondary">Читайте с удовольствием</small>
+                    <small className="text-body-secondary">Читайте с удовольствием</small>
                 </h1>
 
                 <hr />
@@ -22,7 +22,7 @@ const About = () => {
 
                 <hr />
 
-                <p className="fs-4 m-0 pb-4"> Приходите, и откройте для себя увлекательный мир книг! Наша библиотека ждет вас по адресу <address>г.Тюмень, ул. Перекопская, д.17</address> Каждый день с <time datetime="08:00">08:00</time> до <time datetime="23:00">23:00</time>. Добро пожаловать!
+                <p className="fs-4 m-0 pb-4"> Приходите, и откройте для себя увлекательный мир книг! Наша библиотека ждет вас по адресу г.Тюмень, ул. Перекопская, д.17 <br /> Каждый день с <time dateTime="08:00">08:00</time> до <time dateTime="23:00">23:00</time>. Добро пожаловать!
                 </p>
             </div>
         </div>

@@ -1,10 +1,12 @@
 ﻿namespace EasyLibrary.API.Contracts
 {
-    public record UserResponse (
+    public record UserResponseDisplay (
         Guid Id, 
         string Name, 
         string Surname, 
         string? Patronymic, 
-        string Email
+        string Email,
+        DateOnly RegistrationDate,
+        bool IsAdmin
         );
 }

@@ -57,12 +57,12 @@ const Footer = () => {
                     </div>
 
                     <div className="col">
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item bg-body-tertiary"><a className="link-light link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover" href="">Услуги</a></li>
-                            <li class="list-group-item bg-body-tertiary"><a className="link-light link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover" href="">Наши партнеры</a></li>
-                            <li class="list-group-item bg-body-tertiary"><a className="link-light link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover" href="">О компании</a></li>
-                            <li class="list-group-item bg-body-tertiary"><a className="link-light link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover" href="">Хотите у нас работать?</a></li>
-                            <li class="list-group-item bg-body-tertiary"><a className="link-light link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover" href="">Вопросы и ответы</a></li>
+                        <ul className="list-group list-group-flush">
+                            <li className="list-group-item bg-body-tertiary"><a className="link-light link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover" href="">Услуги</a></li>
+                            <li className="list-group-item bg-body-tertiary"><a className="link-light link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover" href="">Наши партнеры</a></li>
+                            <li className="list-group-item bg-body-tertiary"><a className="link-light link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover" href="">О компании</a></li>
+                            <li className="list-group-item bg-body-tertiary"><a className="link-light link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover" href="">Хотите у нас работать?</a></li>
+                            <li className="list-group-item bg-body-tertiary"><a className="link-light link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover" href="">Вопросы и ответы</a></li>
                         </ul>
                     </div>
                 </div>
