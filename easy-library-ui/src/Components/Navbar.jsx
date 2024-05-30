@@ -44,11 +44,19 @@ const Navbar = () => {
                             </svg>
                             <Link className="nav-link p-0 fs-5" to="/users">Пользователи</Link>
                         </li>
-                        <li className="nav-item d-flex flex-column align-items-center me-2">
+
+                        <li className="nav-item dropdown d-flex flex-column align-items-center me-2">
                             <svg width="32" height="32" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M16.6666 23.3334H23.3333V20H16.6666V23.3334ZM16.6666 18.3334H29.9999V15H16.6666V18.3334ZM16.6666 13.3334H29.9999V10H16.6666V13.3334ZM13.3333 30C12.4166 30 11.6319 29.6737 10.9791 29.0209C10.3263 28.3681 9.99992 27.5834 9.99992 26.6667V6.66671C9.99992 5.75004 10.3263 4.96532 10.9791 4.31254C11.6319 3.65976 12.4166 3.33337 13.3333 3.33337H33.3333C34.2499 3.33337 35.0346 3.65976 35.6874 4.31254C36.3402 4.96532 36.6666 5.75004 36.6666 6.66671V26.6667C36.6666 27.5834 36.3402 28.3681 35.6874 29.0209C35.0346 29.6737 34.2499 30 33.3333 30H13.3333ZM13.3333 26.6667H33.3333V6.66671H13.3333V26.6667ZM6.66658 36.6667C5.74992 36.6667 4.9652 36.3403 4.31242 35.6875C3.65964 35.0348 3.33325 34.25 3.33325 33.3334V10H6.66658V33.3334H29.9999V36.6667H6.66658Z" fill="#E2D4BA" />
                             </svg>
-                            <button className="nav-link p-0 fs-5">Книги</button>
+                            <a className="nav-link p-0 fs-5  dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">Книги</a>
+                            <ul className="dropdown-menu">
+                                <li><a className="dropdown-item" href="#">Выдача</a></li>
+                                <li><a className="dropdown-item" href="#">Возврат</a></li>
+                                <li><a className="dropdown-item" href="#">Список экземпляров</a></li>
+                                <li><hr className="dropdown-divider" /></li>
+                                <li><Link className="dropdown-item" to="/handbooks">Справочники</Link></li>
+                            </ul>
                         </li>
                         <li className="nav-item d-flex flex-column align-items-center me-2">
                             <svg width="32" height="32" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
