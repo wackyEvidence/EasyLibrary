@@ -2,6 +2,9 @@
 {
     public class BookAuthor
     {
+        public const int NAME_MAX_LENGTH = 100;
+        public const int BIO_MAX_LENGTH = 300;
+
         private BookAuthor(Guid id, string name, string bio, List<BookType> bookTypes)
         {
             Id = id;
@@ -12,6 +15,9 @@
 
         public Guid Id { get; }
         public string Name { get; } = string.Empty;
+        /// <summary>
+        /// Краткое описание автора 
+        /// </summary>
         public string? Bio { get; } 
         public List<BookType> BookTypes { get; }
 
@@ -27,8 +33,15 @@
         public static BookAuthor Create(Guid id, string name, string bio, List<BookType> bookTypes)
         {
             if(string.IsNullOrEmpty(name)) 
-                throw new ArgumentNullException("name can't be null or empty");
-            
+                throw new ArgumentNullException(nameof(name));
+            else if(name.Length > NAME_MAX_LENGTH)
+                throw new ArgumentOutOfRangeException($"name length was out of range. max allowed length: {NAME_MAX_LENGTH}, actual: {name.Length}");
+
+            if (string.IsNullOrEmpty(bio))
+                throw new ArgumentNullException(nameof(bio));
+            else if (bio.Length > BIO_MAX_LENGTH)
+                throw new ArgumentOutOfRangeException($"bio length was out of range. max allowed length: {BIO_MAX_LENGTH}, actual: {bio.Length}");
+
             return new BookAuthor(id, name, bio, bookTypes);
         }
     }

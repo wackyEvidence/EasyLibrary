@@ -10,7 +10,7 @@ namespace EasyLibrary.DataAccess.Configurations
         {
             builder.HasKey(ba => ba.Id);
             builder.Property(ba => ba.Name).IsRequired().HasColumnType("varchar(100)");
-            builder.Property(ba => ba.Bio).HasColumnType("text");
+            builder.Property(ba => ba.Bio).HasColumnType("varchar(300)");
             // Relations 
             builder.HasMany(ba => ba.BookTypes).WithMany(bt => bt.Authors);
             // Indexes
