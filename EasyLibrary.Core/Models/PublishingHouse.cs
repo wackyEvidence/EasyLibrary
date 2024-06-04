@@ -10,9 +10,9 @@
         }
 
         public Guid Id { get; }
-        public string? Name { get; } = string.Empty;
+        public string Name { get; } = string.Empty;
 
-        public List<BookType>? BookTypes { get; }
+        public List<BookType> BookTypes { get; }
 
         /// <summary>
         /// Создание экземпляра класса PublishingHouse
@@ -28,6 +28,14 @@
                 throw new ArgumentException("name can't be null or empty");
            
             return new PublishingHouse(id, name, bookTypes);
+        }
+
+        public static PublishingHouse Create(Guid id, string name)
+        {
+            if (string.IsNullOrEmpty(name))
+                throw new ArgumentException("name can't be null or empty");
+
+            return new PublishingHouse(id, name, new List<BookType>());
         }
     }
 }

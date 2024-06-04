@@ -5,7 +5,7 @@
         public const int NAME_MAX_LENGTH = 100;
         public const int BIO_MAX_LENGTH = 300;
 
-        private BookAuthor(Guid id, string name, string bio, List<BookType> bookTypes)
+        private BookAuthor(Guid id, string name, string? bio, List<BookType> bookTypes)
         {
             Id = id;
             Name = name;
@@ -30,19 +30,30 @@
         /// <param name="bookTypes">Книги данного автора</param>
         /// <returns>Экземпляр класса BookAuthor</returns>
         /// <exception cref="ArgumentNullException">Полное имя автора - пустая строка или null</exception>
-        public static BookAuthor Create(Guid id, string name, string bio, List<BookType> bookTypes)
+        public static BookAuthor Create(Guid id, string name, string? bio, List<BookType> bookTypes)
         {
             if(string.IsNullOrEmpty(name)) 
                 throw new ArgumentNullException(nameof(name));
             else if(name.Length > NAME_MAX_LENGTH)
                 throw new ArgumentOutOfRangeException($"name length was out of range. max allowed length: {NAME_MAX_LENGTH}, actual: {name.Length}");
 
-            if (string.IsNullOrEmpty(bio))
-                throw new ArgumentNullException(nameof(bio));
-            else if (bio.Length > BIO_MAX_LENGTH)
+            if (bio != null && bio.Length > BIO_MAX_LENGTH)
                 throw new ArgumentOutOfRangeException($"bio length was out of range. max allowed length: {BIO_MAX_LENGTH}, actual: {bio.Length}");
 
             return new BookAuthor(id, name, bio, bookTypes);
+        }
+
+        public static BookAuthor Create(Guid id, string name, string? bio)
+        {
+            if (string.IsNullOrEmpty(name))
+                throw new ArgumentNullException(nameof(name));
+            else if (name.Length > NAME_MAX_LENGTH)
+                throw new ArgumentOutOfRangeException($"name length was out of range. max allowed length: {NAME_MAX_LENGTH}, actual: {name.Length}");
+
+            if (bio != null && bio.Length > BIO_MAX_LENGTH)
+                throw new ArgumentOutOfRangeException($"bio length was out of range. max allowed length: {BIO_MAX_LENGTH}, actual: {bio.Length}");
+
+            return new BookAuthor(id, name, bio, new List<BookType>());
         }
     }
 }
