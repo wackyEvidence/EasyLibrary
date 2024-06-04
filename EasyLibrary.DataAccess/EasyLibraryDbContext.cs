@@ -1,4 +1,5 @@
-﻿using EasyLibrary.DataAccess.Configurations;
+﻿using EasyLibrary.Core.Models;
+using EasyLibrary.DataAccess.Configurations;
 using EasyLibrary.DataAccess.Entites;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,8 +12,11 @@ namespace EasyLibrary.DataAccess
 
         }
 
-        public DbSet<BookTypeEntity> BookTypes { get; set; }
+        public DbSet<BookAuthorEntity> BookAuthorEntity { get; set; }
         public DbSet<BookCopyEntity> BookCopies { get; set; }
+        public DbSet<BookSeriesEntity> BookSeriesEntity { get; set; }
+        public DbSet<BookTypeEntity> BookTypes { get; set; }
+        public DbSet<PublishingHouseEntity> PublishingHouseEntity { get; set; }
         public DbSet<UserEntity> Users { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
