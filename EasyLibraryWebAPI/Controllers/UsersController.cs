@@ -1,4 +1,4 @@
-﻿using EasyLibrary.API.Contracts;
+﻿using EasyLibrary.API.Contracts.User;
 using EasyLibrary.Application.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Primitives;
@@ -16,7 +16,7 @@ namespace EasyLibrary.API.Controllers
         }
 
         [HttpGet("{id:guid}")]
-        public async Task<ActionResult<UserResponseFull>> GetById(Guid id)
+        public async Task<ActionResult<UserResponseFull>> GetUserById(Guid id)
         {
             try
             {

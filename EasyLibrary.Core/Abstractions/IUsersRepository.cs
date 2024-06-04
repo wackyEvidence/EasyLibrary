@@ -1,6 +1,6 @@
 ﻿using EasyLibrary.Core.Models;
 
-namespace EasyLibrary.DataAccess.Repositories
+namespace EasyLibrary.Core.Abstractions
 {
     public interface IUsersRepository
     {

@@ -15,7 +15,7 @@ namespace EasyLibrary.DataAccess.Entites
         /// <summary>
         /// Тип переплета книги.
         /// </summary>
-        public BookBinding Binding { get; set; }
+        public BookBinding Cover { get; set; }
         public int PublishingYear { get; set; }
         public string ISBN { get; set; } = string.Empty;
         public int PagesCount { get; set; }

@@ -10,8 +10,9 @@ namespace EasyLibrary.DataAccess.Configurations
         {
             builder.HasKey(bt => bt.Id);
             builder.Property(bt => bt.Title).IsRequired().HasColumnType("varchar(50)");
-            builder.Property(bt => bt.Binding).HasConversion<int>().IsRequired();
+            builder.Property(bt => bt.Cover).HasConversion<int>().IsRequired();
             builder.Property(bt => bt.PublishingYear).IsRequired();
+            // TODO поменять на varchar(13)
             builder.Property(bt => bt.ISBN).IsRequired().HasColumnType("varchar(17)");
             builder.Property(bt => bt.PublishingYear).IsRequired();
             builder.Property(bt => bt.Weight).IsRequired(); 

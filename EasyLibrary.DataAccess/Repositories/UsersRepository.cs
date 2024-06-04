@@ -1,7 +1,7 @@
-﻿using EasyLibrary.Core.Models;
+﻿using EasyLibrary.Core.Abstractions;
+using EasyLibrary.Core.Models;
 using EasyLibrary.DataAccess.Entites;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging.Abstractions;
 
 namespace EasyLibrary.DataAccess.Repositories
 {

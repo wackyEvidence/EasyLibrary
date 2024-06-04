@@ -1,6 +1,6 @@
 ﻿using EasyLibrary.Application.Exceptions;
 using EasyLibrary.Core.Models;
-using EasyLibrary.DataAccess.Repositories;
+using EasyLibrary.Core.Abstractions;
 
 namespace EasyLibrary.Application.Services
 {
@@ -15,11 +15,9 @@ namespace EasyLibrary.Application.Services
 
         public async Task<User> GetUserById(Guid id)
         {
-            var user =  await _usersRepository.GetById(id);
+            var user = await _usersRepository.GetById(id);
 
-            return user == null ? 
-                throw new UserNotFoundException("User with provided id was not found") : 
-                user;
+            return user ?? throw new UserNotFoundException("User with provided id was not found");
         }
 
         public async Task<List<User>> GetAllUsers()
