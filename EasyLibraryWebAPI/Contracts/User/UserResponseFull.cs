@@ -1,4 +1,4 @@
-﻿namespace EasyLibrary.API.Contracts
+﻿namespace EasyLibrary.API.Contracts.User
 {
     public record UserResponseFull(
         Guid Id,

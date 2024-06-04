@@ -1,10 +1,10 @@
-﻿namespace EasyLibrary.API.Contracts
+﻿namespace EasyLibrary.API.Contracts.User
 {
     public record UserRequest(
         string Name,
         string Surname,
         string? Patronymic,
-        string PassportNumber, 
+        string PassportNumber,
         string PassportSeries,
         DateOnly BirthDate,
         string Email,
