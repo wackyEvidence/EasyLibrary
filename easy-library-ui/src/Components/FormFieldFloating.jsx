@@ -1,24 +1,41 @@
 import { React, useState, useEffect } from 'react';
 
-const FormFieldFloating = ({ id, type, placeholder, name, required, disabled, label, validation, onError, showError, initialValue, onChange }) => {
+const FormFieldFloating = (
+    {
+        id,
+        type,
+        placeholder,
+        name,
+        required,
+        disabled,
+        label,
+        validation,
+        onError,
+        showError,
+        initialValue,
+        onChange,
+        customErrorMessage
+    }
+) => {
     const [value, setValue] = useState(initialValue || '');
     const [error, setError] = useState('');
 
-    const handleFieldValueUpdate = (e) => {
-        const newValue = e.target.value;
+    const handleFieldValueUpdate = (newValue) => {
         setValue(newValue);
         onChange(name, newValue);
     };
 
-    const validateField = async () => {
-        if (validation) {
-            const errorMessage = await validation(value);
-            setError(errorMessage);
-            onError(name, errorMessage);
-        }
-    };
-
     useEffect(() => {
+        const validateField = async () => {
+            if (validation) {
+                const validationResult = customErrorMessage
+                    ? await validation(value, customErrorMessage)
+                    : await validation(value);
+
+                setError(validationResult);
+                onError(name, validationResult);
+            }
+        };
         validateField();
     }, [value]);
 
@@ -34,7 +51,7 @@ const FormFieldFloating = ({ id, type, placeholder, name, required, disabled, la
                 id={id}
                 name={name}
                 value={value}
-                onChange={handleFieldValueUpdate}
+                onChange={(e) => handleFieldValueUpdate(e.target.value)}
                 required={required}
                 placeholder={placeholder}
                 disabled={disabled}
