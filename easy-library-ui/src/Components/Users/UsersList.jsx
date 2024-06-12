@@ -11,14 +11,12 @@ const Users = () => {
     const [loading, setLoading] = useState(true);
     const [errorMessage, setErrorMessage] = useState(null);
     const [errorPrompt, setErrorPrompt] = useState(null);
-    const [modalShow, setModalShow] = useState(false);
+    const [showModal, setShowModal] = useState(false);
     const [currentUser, setCurrentUser] = useState(null);
 
-    // Получение всех пользователей для заполнения таблицы
     const fetchUsers = async () => {
         try {
-            const userList = await UserService.getAllUsersDisplay();
-            console.log(userList);
+            const userList = await UserService.getAllUsers('display');
             setUsers(userList);
         } catch (error) {
             setErrorMessage(error.message);
@@ -28,7 +26,6 @@ const Users = () => {
         }
     };
 
-    // Получение пользователя по id (для подтягивания полных данных в случае редактирования)
     const fetchUser = async (id) => {
         try {
             return await UserService.getById(id);
@@ -44,9 +41,7 @@ const Users = () => {
         } else {
             await UserService.createUser(user);
         }
-        console.log('fetching users');
         await fetchUsers();
-        console.log('users fetched');
         setCurrentUser(null);
     };
 
@@ -57,17 +52,27 @@ const Users = () => {
     const handleEdit = async (id) => {
         const fullUser = await fetchUser(id);
         setCurrentUser(fullUser);
-        setModalShow(true);
+        setShowModal(true);
     };
 
     const handleAdd = () => {
         setCurrentUser(null);
-        setModalShow(true);
+        setShowModal(true);
+    }
+
+    const handleDelete = async (id) => {
+        await UserService.deleteUser(id);
+        await fetchUsers();
+    }
+
+    const handleClose = () => {
+        setCurrentUser(null);
+        setShowModal(false);
     }
 
     const handleExport = async () => {
         try {
-            const fullUsers = await UserService.getAllUsersFull();
+            const fullUsers = await UserService.getAllUsers('full');
             const exportData = fullUsers.map(user => ({
                 'Фамилия': user.surname,
                 'Имя': user.name,
@@ -147,12 +152,12 @@ const Users = () => {
                 </thead>
                 <tbody>
                     {users.map(user => (
-                        <UserListItem key={user.id} user={user} refreshUsers={fetchUsers} handleEdit={handleEdit}></UserListItem>
+                        <UserListItem key={user.id} user={user} handleEdit={handleEdit} handleDelete={handleDelete}></UserListItem>
                     ))}
                 </tbody>
             </table>
 
-            <UserModal show={modalShow} handleClose={() => setModalShow(false)} user={currentUser} handleSave={handleSave} />
+            <UserModal show={showModal} handleClose={handleClose} user={currentUser} handleSave={handleSave} />
         </div >
     )
 }

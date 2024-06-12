@@ -2,24 +2,10 @@ import { React, useState, useEffect } from 'react';
 import Overlay from '../Overlay';
 import FormFieldFloating from '../FormFieldFloating';
 import FormField from '../FormField';
-import UserService from '../../Services/user.service';
+import { validateRequired, validateEmail, validatePhoneNumber, validatePassportNumber, validatePassportSeries } from '../../utils/validation';
 
 
 const UserModal = ({ show, user, handleClose, handleSave }) => {
-    // TODO разобраться с emptyData (использовать или нет)
-    const emptyData = {
-        surname: '',
-        name: '',
-        patronymic: '',
-        passportSeries: '',
-        passportNumber: '',
-        birthDate: '',
-        registrationDate: new Date().toISOString().split('T')[0],
-        email: '',
-        phoneNumber: '',
-        isAdmin: false
-    };
-
     const [formData, setFormData] = useState({
         surname: '',
         name: '',
@@ -33,135 +19,58 @@ const UserModal = ({ show, user, handleClose, handleSave }) => {
         isAdmin: false
     });
 
-    useEffect(() => {
-        const fetchUser = async () => {
-            if (user && user.id) {
-                try {
-                    const userData = await UserService.getById(user.id);
-                    setFormData(userData);
-                } catch (error) {
-                    console.error('Error fetching user data:', error);
-                }
-            }
-        };
-
-        fetchUser();
-    }, [user]);
+    const [formErrors, setFormErrors] = useState({});
+    const [isSubmitted, setIsSubmitted] = useState(false);
 
     useEffect(() => {
-        setFormData({
-            surname: '',
-            name: '',
-            patronymic: '',
-            passportSeries: '',
-            passportNumber: '',
-            birthDate: '',
-            registrationDate: new Date().toISOString().split('T')[0],
-            email: '',
-            phoneNumber: '',
-            isAdmin: false
-        });
+        if (user) {
+            setFormData(user);
+        }
+        else {
+            setFormData({
+                surname: '',
+                name: '',
+                patronymic: '',
+                passportSeries: '',
+                passportNumber: '',
+                birthDate: '',
+                registrationDate: new Date().toISOString().split('T')[0],
+                email: '',
+                phoneNumber: '',
+                isAdmin: false
+            });
+        }
+        setFormErrors({});
         setIsSubmitted(false);
-    }, [show])
-
-    const [formErrors, setFormErrors] = useState({}); // ошибки заполнения полей 
-    const [formValid, setFormValid] = useState(false); // валидность введенных данных 
-    const [isSubmitted, setIsSubmitted] = useState(false); // была ли форма отправлена пользователем
+    }, [user, show])
 
     const handleFieldError = (name, error) => {
-        setFormErrors({ ...formErrors, [name]: error });
+        setFormErrors((prevState) => {
+            return { ...prevState, [name]: error }
+        });
     }
 
-    const handleChange = (name, value) => {
-        setFormData({ ...formData, [name]: value });
+    const handleFieldChange = (name, value) => {
+        setFormData((prevState) => {
+            return { ...prevState, [name]: value }
+        });
     }
 
     const handleSelectChange = (e) => {
         const { name, value } = e.target;
-        setFormData({ ...formData, [name]: value === "true" ? true : false });
+        setFormData((prevState) => {
+            return { ...prevState, [name]: value === "true" ? true : false }
+        })
     }
-
-    const validateRequired = (fieldValue) => {
-        if (!fieldValue) {
-            return "Пожалуйста, заполните это поле.";
-        }
-        return '';
-    };
-
-    const validatePassportSeries = (passportSeries) => {
-        if (!passportSeries) {
-            return 'Пожалуйста, введите серию паспорта.';
-        }
-        const passportSeriesRegex = /^\d{4}$/;
-        if (!passportSeriesRegex.test(passportSeries)) {
-            return 'Пожалуйста, введите серию из четырех цифр.';
-        }
-
-        return '';
-    }
-
-    const validatePassportNumber = (passportNumber) => {
-        if (!passportNumber) {
-            return 'Пожалуйста, введите номер паспорта.';
-        }
-        const passportSeriesRegex = /^\d{6}$/;
-        if (!passportSeriesRegex.test(passportNumber)) {
-            return 'Пожалуйста, введите серию из шести цифр.';
-        }
-
-        return '';
-    }
-
-    const validatePhoneNumber = (phoneNumber) => {
-        if (!phoneNumber) {
-            return 'Пожалуйста, введите номер телефона.';
-        }
-        const phoneRegex = /^\+7\(\d{3}\)\d{3}-\d{2}-\d{2}$/;
-        if (!phoneRegex.test(phoneNumber)) {
-            return 'Пожалуйста, введите номер телефона в формате +7(XXX)XXX-XX-XX.';
-        }
-
-        return '';
-    };
-
-    const validateEmail = (email) => {
-        if (!email) {
-            return 'Пожалуйста, введите адрес электронной почты.';
-        }
-        if (!/\S+@\S+\.\S+/.test(email)) {
-            return 'Пожалуйста, введите корректный адрес электронной почты.';
-        }
-        return '';
-    };
 
     const handleSubmit = async (event) => {
         event.preventDefault();
         event.stopPropagation();
         setIsSubmitted(true);
-        const emailError = validateEmail(formData.email);
-        const surnameError = validateRequired(formData.surname, 'Пожалуйста, введите фамилию.');
-        const nameError = validateRequired(formData.name, 'Пожалуйста, введите имя.');
-        const passportSeriesError = validateRequired(formData.passportSeries, 'Пожалуйста, введите серию паспорта.');
-        const passportNumberError = validateRequired(formData.passportNumber, 'Пожалуйста, введите номер паспорта.');
-        const birthDateError = validateRequired(formData.birthDate, 'Пожалуйста, укажите дату рождения.');
-        const phoneError = validatePhoneNumber(formData.phoneNumber);
 
-        setFormErrors({
-            email: emailError,
-            surname: surnameError,
-            name: nameError,
-            passportSeries: passportSeriesError,
-            passportNumber: passportNumberError,
-            birthDate: birthDateError,
-            phone: phoneError
-        });
-
-        if (!emailError && !surnameError && !nameError && !passportSeriesError && !passportNumberError && !birthDateError && !phoneError) {
-            setFormValid(true);
+        if (Object.values(formErrors).every(error => !error)) {
             handleSave(formData);
             handleClose();
-        } else {
-            setFormValid(false);
         }
     };
 
@@ -190,7 +99,7 @@ const UserModal = ({ show, user, handleClose, handleSave }) => {
                                             onError={handleFieldError}
                                             showError={isSubmitted}
                                             initialValue={formData.surname}
-                                            onChange={handleChange}
+                                            onChange={handleFieldChange}
                                         />
                                     </div>
                                     <div className="col-md-4 mt-0">
@@ -205,7 +114,7 @@ const UserModal = ({ show, user, handleClose, handleSave }) => {
                                             onError={handleFieldError}
                                             showError={isSubmitted}
                                             initialValue={formData.name}
-                                            onChange={handleChange}
+                                            onChange={handleFieldChange}
                                         />
                                     </div>
                                     <div className="col-md-4 mt-0">
@@ -216,11 +125,9 @@ const UserModal = ({ show, user, handleClose, handleSave }) => {
                                             name="patronymic"
                                             required={false}
                                             label="Отчество"
-                                            validation={validateRequired}
-                                            onError={handleFieldError}
                                             showError={false}
                                             initialValue={formData.patronymic}
-                                            onChange={handleChange}
+                                            onChange={handleFieldChange}
                                         />
                                         <div id="patronymicHelpBlock" className="form-text" style={{ marginTop: -12 }}>
                                             Можно оставить пустым.
@@ -240,7 +147,7 @@ const UserModal = ({ show, user, handleClose, handleSave }) => {
                                             onError={handleFieldError}
                                             showError={isSubmitted}
                                             initialValue={formData.birthDate}
-                                            onChange={handleChange}
+                                            onChange={handleFieldChange}
                                         />
                                     </div>
                                 </div>
@@ -261,7 +168,7 @@ const UserModal = ({ show, user, handleClose, handleSave }) => {
                                                     onError={handleFieldError}
                                                     showError={isSubmitted}
                                                     initialValue={formData.passportSeries}
-                                                    onChange={handleChange}
+                                                    onChange={handleFieldChange}
                                                 />
 
                                             </div>
@@ -277,7 +184,7 @@ const UserModal = ({ show, user, handleClose, handleSave }) => {
                                                     onError={handleFieldError}
                                                     showError={isSubmitted}
                                                     initialValue={formData.passportNumber}
-                                                    onChange={handleChange}
+                                                    onChange={handleFieldChange}
                                                 />
                                             </div>
                                         </div>
@@ -298,7 +205,7 @@ const UserModal = ({ show, user, handleClose, handleSave }) => {
                                             showError={isSubmitted}
                                             required={true}
                                             initialValue={formData.email}
-                                            onChange={handleChange}
+                                            onChange={handleFieldChange}
                                         />
                                     </div>
 
@@ -313,7 +220,7 @@ const UserModal = ({ show, user, handleClose, handleSave }) => {
                                             showError={isSubmitted}
                                             required={true}
                                             initialValue={formData.phoneNumber}
-                                            onChange={handleChange}
+                                            onChange={handleFieldChange}
                                         />
                                         <div id="patronymicHelpBlock" className="form-text" style={{ marginTop: -10 }}>
                                             В формате +7(XXX)XXX-XX-XX.
