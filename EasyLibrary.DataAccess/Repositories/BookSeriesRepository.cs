@@ -48,7 +48,7 @@ namespace EasyLibrary.DataAccess.Repositories
 
         public async Task<BookSeries?> GetById(Guid id)
         {
-            var bookSeriesEntity = await _context.BookSeriesEntity.Where(bs => bs.Id == id).FirstOrDefaultAsync();
+            var bookSeriesEntity = await _context.BookSeriesEntity.AsNoTracking().Where(bs => bs.Id == id).FirstOrDefaultAsync();
 
             return bookSeriesEntity == null? 
                 null : 

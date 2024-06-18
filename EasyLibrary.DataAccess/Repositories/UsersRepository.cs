@@ -16,7 +16,7 @@ namespace EasyLibrary.DataAccess.Repositories
 
         public async Task<User?> GetById(Guid id)
         {
-            var user = await _context.Users.Where(u => u.Id == id).FirstOrDefaultAsync();
+            var user = await _context.Users.AsNoTracking().Where(u => u.Id == id).FirstOrDefaultAsync();
             
             return user == null?
                 null : 
