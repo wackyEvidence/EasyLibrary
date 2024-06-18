@@ -3,6 +3,7 @@ using System;
 using EasyLibrary.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace EasyLibrary.DataAccess.Migrations
 {
     [DbContext(typeof(EasyLibraryDbContext))]
-    partial class EasyLibraryDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240617114547_BookTypeEntityFix")]
+    partial class BookTypeEntityFix
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
