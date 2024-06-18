@@ -9,7 +9,7 @@ namespace EasyLibrary.DataAccess
     {
         public EasyLibraryDbContext(DbContextOptions<EasyLibraryDbContext> options) : base(options) 
         {
-
+            
         }
 
         public DbSet<BookAuthorEntity> BookAuthorEntity { get; set; }
@@ -18,6 +18,12 @@ namespace EasyLibrary.DataAccess
         public DbSet<BookTypeEntity> BookTypes { get; set; }
         public DbSet<PublishingHouseEntity> PublishingHouseEntity { get; set; }
         public DbSet<UserEntity> Users { get; set; }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            base.OnConfiguring(optionsBuilder);
+            optionsBuilder.EnableSensitiveDataLogging();
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
