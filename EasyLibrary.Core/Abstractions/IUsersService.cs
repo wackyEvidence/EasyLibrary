@@ -1,6 +1,6 @@
 ﻿using EasyLibrary.Core.Models;
 
-namespace EasyLibrary.Application.Services
+namespace EasyLibrary.Core.Abstractions
 {
     public interface IUsersService
     {
