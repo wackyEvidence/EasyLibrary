@@ -29,13 +29,5 @@
            
             return new PublishingHouse(id, name, bookTypes);
         }
-
-        public static PublishingHouse Create(Guid id, string name)
-        {
-            if (string.IsNullOrEmpty(name))
-                throw new ArgumentException("name can't be null or empty");
-
-            return new PublishingHouse(id, name, new List<BookType>());
-        }
     }
 }

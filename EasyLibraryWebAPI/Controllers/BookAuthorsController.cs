@@ -75,7 +75,12 @@ namespace EasyLibrary.API.Controllers
         {
             try
             {
-                var bookAuthor = BookAuthor.Create(Guid.NewGuid(), request.Name, request.Bio);
+                var bookAuthor = BookAuthor.Create(
+                    Guid.NewGuid(), 
+                    request.Name, 
+                    request.Bio, 
+                    new List<BookType>());
+
                 var bookAuthorId = await _bookAuthorsService.CreateBookAuthor(bookAuthor);  
 
                 return Ok(bookAuthorId);

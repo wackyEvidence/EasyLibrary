@@ -14,7 +14,7 @@
         }
 
         public Guid Id { get; }
-        public string Name { get; } = string.Empty;
+        public string Name { get; }
         /// <summary>
         /// Краткое описание автора 
         /// </summary>
@@ -41,19 +41,6 @@
                 throw new ArgumentOutOfRangeException($"bio length was out of range. max allowed length: {BIO_MAX_LENGTH}, actual: {bio.Length}");
 
             return new BookAuthor(id, name, bio, bookTypes);
-        }
-
-        public static BookAuthor Create(Guid id, string name, string? bio)
-        {
-            if (string.IsNullOrEmpty(name))
-                throw new ArgumentNullException(nameof(name));
-            else if (name.Length > NAME_MAX_LENGTH)
-                throw new ArgumentOutOfRangeException($"name length was out of range. max allowed length: {NAME_MAX_LENGTH}, actual: {name.Length}");
-
-            if (bio != null && bio.Length > BIO_MAX_LENGTH)
-                throw new ArgumentOutOfRangeException($"bio length was out of range. max allowed length: {BIO_MAX_LENGTH}, actual: {bio.Length}");
-
-            return new BookAuthor(id, name, bio, new List<BookType>());
         }
     }
 }

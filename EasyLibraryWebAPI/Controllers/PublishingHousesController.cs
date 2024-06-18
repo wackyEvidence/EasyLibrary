@@ -47,7 +47,10 @@ namespace EasyLibrary.API.Controllers
         {
             try
             {
-                var publishingHouse = PublishingHouse.Create(Guid.NewGuid(), request.Name);
+                var publishingHouse = PublishingHouse.Create(
+                    Guid.NewGuid(), 
+                    request.Name, 
+                    new List<BookType>());
                 var publishingHouseId = await _publishingHouseService.CreatePublishingHouse(publishingHouse);
 
                 return Ok(publishingHouseId);

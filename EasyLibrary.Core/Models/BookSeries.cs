@@ -13,7 +13,7 @@
         }
 
         public Guid Id { get; }
-        public string Name { get; } = string.Empty;
+        public string Name { get; }
         /// <summary>
         /// Книги данной серии.
         /// </summary>
@@ -25,14 +25,6 @@
                 throw new ArgumentException("name was null or empty");
 
             return new BookSeries(id, name, bookTypes);
-        }
-
-        public static BookSeries Create(Guid id, string name)
-        {
-            if (string.IsNullOrEmpty(name))
-                throw new ArgumentException("name was null or empty");
-
-            return new BookSeries(id, name, new List<BookType>());
         }
     }
 }

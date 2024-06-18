@@ -48,7 +48,10 @@ namespace EasyLibrary.API.Controllers
         {
             try
             {
-                var bookSeries = BookSeries.Create(Guid.NewGuid(), request.Name, new List<BookType>());
+                var bookSeries = BookSeries.Create(
+                    Guid.NewGuid(), 
+                    request.Name, 
+                    new List<BookType>());
                 var bookSeriesId = await _bookSeriesService.CreateBookSeries(bookSeries);
 
                 return Ok(bookSeriesId);
