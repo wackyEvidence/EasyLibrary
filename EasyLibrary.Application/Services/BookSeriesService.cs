@@ -32,7 +32,7 @@ namespace EasyLibrary.Application.Services
         {
             var bookSeries = await _bookSeriesRepository.GetById(id); 
 
-            return bookSeries ?? throw new BookSeriesNotFoundException("Book series with provided id was not found");
+            return bookSeries ?? throw new NotFoundException<BookSeries>(id);
         }
 
         public async Task<Guid> UpdateBookSeries(Guid id, string name)

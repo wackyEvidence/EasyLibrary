@@ -1,5 +1,5 @@
 ﻿using EasyLibrary.API.Contracts.User;
-using EasyLibrary.Application.Services;
+using EasyLibrary.Core.Abstractions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Primitives;
 
@@ -39,15 +39,15 @@ namespace EasyLibrary.API.Controllers
             }
             catch (Exception e)
             {
-                return NotFound(e.Message);
+                return BadRequest(e.Message);   
             }
         }
 
-        [HttpGet] 
+        [HttpGet]
         public async Task<ActionResult<List<UserResponseDisplay>>> GetAllUsers()
         {
             var users = await _usersService.GetAllUsers();
-            
+
             if (Request.Headers.TryGetValue("Type", out StringValues typeHeader))
             {
                 if (typeHeader == "full")
@@ -95,15 +95,15 @@ namespace EasyLibrary.API.Controllers
             try
             {
                 var user = Core.Models.User.Create(
-                    Guid.NewGuid(), 
-                    request.Name, 
-                    request.Surname, 
-                    request.Patronymic, 
+                    Guid.NewGuid(),
+                    request.Name,
+                    request.Surname,
+                    request.Patronymic,
                     request.PassportNumber,
                     request.PassportSeries,
-                    request.BirthDate, 
+                    request.BirthDate,
                     DateOnly.Parse(DateTime.Now.ToShortDateString()),
-                    request.Email, 
+                    request.Email,
                     request.PhoneNumber,
                     request.IsAdmin
                     );
@@ -118,26 +118,26 @@ namespace EasyLibrary.API.Controllers
             }
         }
 
-        [HttpPut("{id:guid}")] 
+        [HttpPut("{id:guid}")]
         public async Task<ActionResult<Guid>> UpdateUser(Guid id, [FromBody] UserRequest request)
         {
             var userId = await _usersService.UpdateUser(
-                id, 
-                request.Name, 
-                request.Surname, 
-                request.Patronymic, 
+                id,
+                request.Name,
+                request.Surname,
+                request.Patronymic,
                 request.PassportNumber,
                 request.PassportSeries,
                 request.BirthDate,
                 request.Email,
                 request.PhoneNumber,
                 request.IsAdmin
-                );
+            );
 
             return Ok(userId);
         }
 
-        [HttpDelete("{id:guid}")] 
+        [HttpDelete("{id:guid}")]
         public async Task<ActionResult<Guid>> DeleteUser(Guid id)
         {
             return Ok(await _usersService.DeleteUser(id));

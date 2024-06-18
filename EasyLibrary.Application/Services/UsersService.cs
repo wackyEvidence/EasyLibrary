@@ -17,7 +17,7 @@ namespace EasyLibrary.Application.Services
         {
             var user = await _usersRepository.GetById(id);
 
-            return user ?? throw new UserNotFoundException("User with provided id was not found");
+            return user ?? throw new NotFoundException<User>(id);
         }
 
         public async Task<List<User>> GetAllUsers()

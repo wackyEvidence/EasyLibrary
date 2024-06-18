@@ -1,6 +1,4 @@
-﻿using EasyLibrary.API.Contracts.BookSeries;
-using EasyLibrary.API.Contracts.PublishingHouse;
-using EasyLibrary.Application.Services;
+﻿using EasyLibrary.API.Contracts.PublishingHouse;
 using EasyLibrary.Core.Abstractions;
 using EasyLibrary.Core.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -33,7 +31,7 @@ namespace EasyLibrary.API.Controllers
             }
             catch (Exception e)
             {
-                return NotFound(e.Message);
+                return BadRequest(e.Message);
             }
         }
 

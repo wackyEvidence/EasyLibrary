@@ -1,11 +1,7 @@
-﻿using EasyLibrary.API.Contracts.BookAuthor;
-using EasyLibrary.API.Contracts.BookSeries;
-using EasyLibrary.Application.Services;
+﻿using EasyLibrary.API.Contracts.BookSeries;
 using EasyLibrary.Core.Abstractions;
 using EasyLibrary.Core.Models;
-using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Primitives;
 
 namespace EasyLibrary.API.Controllers
 {
@@ -36,7 +32,7 @@ namespace EasyLibrary.API.Controllers
             }
             catch (Exception e)
             {
-                return NotFound(e.Message);
+                return BadRequest(e.Message);
             }
         }
 
@@ -52,7 +48,7 @@ namespace EasyLibrary.API.Controllers
         {
             try
             {
-                var bookSeries = BookSeries.Create(Guid.NewGuid(), request.Name);
+                var bookSeries = BookSeries.Create(Guid.NewGuid(), request.Name, new List<BookType>());
                 var bookSeriesId = await _bookSeriesService.CreateBookSeries(bookSeries);
 
                 return Ok(bookSeriesId);

@@ -32,7 +32,7 @@ namespace EasyLibrary.Application.Services
         {
             var bookAuthor = await _bookAuthorsRepository.GetById(id);
 
-            return bookAuthor ?? throw new BookAuthorNotFoundException("Book author with provided id was not found");
+            return bookAuthor ?? throw new NotFoundException<BookAuthor>(id);
         }
 
         public async Task<Guid> UpdateBookAuthor(Guid id, string name, string? bio)
