@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace EasyLibrary.Core.Models
+﻿namespace EasyLibrary.Core.Models
 {
     public class BookType
     {
@@ -86,13 +84,13 @@ namespace EasyLibrary.Core.Models
                 throw new ArgumentException($"invalid isnbn length. expected: {ISBN_LENGTH}, actual: {isbn.Length}");
 
             if (pagesCount <= 0)
-                throw new ArgumentOutOfRangeException("pagesCount can't be less than or equal to 0");
+                throw new ArgumentOutOfRangeException(nameof(pagesCount), pagesCount, "pages count can't be less than or equal to 0");
 
             if (weight <= 0)
-                throw new ArgumentOutOfRangeException("weight can't be less than or equal to 0");
+                throw new ArgumentOutOfRangeException(nameof(weight), weight, "weight can't be less than or equal to 0");
 
             if (minAge < 0 || minAge > 18)
-                throw new ArgumentOutOfRangeException("minAge can't be less than 0 or exceed 18");
+                throw new ArgumentOutOfRangeException(nameof(minAge), minAge, "minAge can't be less than 0 or exceed 18");
 
             return new BookType(id, title, publishingHouse, series, copies, authors, cover, publishingYear, isbn, 
                 pagesCount, weight, availableForIssuance, timesIssued, appearanceDate, minAge);

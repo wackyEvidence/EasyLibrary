@@ -48,17 +48,17 @@
             if (passportNumber == null)
                 throw new ArgumentNullException(nameof(passportNumber));
             else if(passportNumber.Length != PASSPORT_NUMBER_LENGTH)
-                throw new ArgumentOutOfRangeException($"invalid passportNumber length. expected: {PASSPORT_NUMBER_LENGTH}, actual: {passportNumber.Length}");
+                throw new ArgumentOutOfRangeException(nameof(passportNumber), passportNumber, $"invalid passportNumber length. expected: {PASSPORT_NUMBER_LENGTH}, actual: {passportNumber.Length}");
 
             if (passportSeries == null)
                 throw new ArgumentNullException(nameof(passportSeries));
             else if (passportSeries.Length != PASSPORT_SERIES_LENGTH)
-                throw new ArgumentOutOfRangeException($"invalid passportSeries length. expected: {PASSPORT_SERIES_LENGTH}, actual: {passportSeries.Length}");
+                throw new ArgumentOutOfRangeException(nameof(passportSeries), passportSeries, $"invalid passportSeries length. expected: {PASSPORT_SERIES_LENGTH}, actual: {passportSeries.Length}");
 
             if (phoneNumber == null)
                 throw new ArgumentNullException(nameof(phoneNumber));
             else if (phoneNumber.Length != PHONE_NUMBER_LENGTH)
-                throw new ArgumentOutOfRangeException($"invalid phoneNumber length. expected: {PHONE_NUMBER_LENGTH}, actual: {phoneNumber.Length}");
+                throw new ArgumentOutOfRangeException(nameof(phoneNumber), phoneNumber, $"invalid phoneNumber length. expected: {PHONE_NUMBER_LENGTH}, actual: {phoneNumber.Length}");
             
 
             return new User(
