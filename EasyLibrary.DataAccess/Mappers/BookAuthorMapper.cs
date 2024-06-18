@@ -18,7 +18,7 @@ namespace EasyLibrary.DataAccess.Mappers
                 source.Id,
                 source.Name,
                 source.Bio,
-                source.BookTypes.ConvertAll(_bookTypeMapper.Value.Map)
+                new List<BookType>()
             );
         }
     }

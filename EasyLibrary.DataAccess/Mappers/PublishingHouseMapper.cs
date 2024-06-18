@@ -16,9 +16,9 @@ namespace EasyLibrary.DataAccess.Mappers
         public PublishingHouse Map(PublishingHouseEntity source)
         {
             return PublishingHouse.Create(
-                source.Id, 
-                source.Name, 
-                source.BookTypes.ConvertAll(_bookTypeMapper.Value.Map)
+                source.Id,
+                source.Name,
+                new List<BookType>()
             );
         }
     }
