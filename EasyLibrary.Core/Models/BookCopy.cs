@@ -1,10 +1,14 @@
-﻿namespace EasyLibrary.Core.Models
+﻿using System.Text.RegularExpressions;
+
+namespace EasyLibrary.Core.Models
 {
     /// <summary>
     /// Конкретный экземпляр книги
     /// </summary>
     public class BookCopy
     {
+        public const int INVENTORY_NUMBER_LENGTH = 10; 
+
         private BookCopy(Guid id, BookType type, string inventoryNumber, BookStatus status)
         {
             Id = id;
@@ -22,8 +26,11 @@
         {
             if(type == null) 
                 throw new ArgumentNullException(nameof(type));
-            if (string.IsNullOrEmpty(inventoryNumber)) 
-                throw new ArgumentException("inventoryNumber was null or empty"); 
+
+            if (string.IsNullOrEmpty(inventoryNumber))
+                throw new ArgumentException("inventoryNumber was null or empty");
+            else if (!Regex.IsMatch(inventoryNumber, $"^\\d{{{INVENTORY_NUMBER_LENGTH}}}$"))
+                throw new ArgumentOutOfRangeException(nameof(inventoryNumber), inventoryNumber, "inventory number must be exactly 10 digits long");
 
             return new BookCopy(id, type, inventoryNumber, status);
         }
