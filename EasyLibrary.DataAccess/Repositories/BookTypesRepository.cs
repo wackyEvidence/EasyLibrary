@@ -89,12 +89,19 @@ namespace EasyLibrary.DataAccess.Repositories
                 .Include(bt => bt.Authors)
                 .AsNoTracking()
                 .ToListAsync();
+
             return bookTypeEntities.ConvertAll(_bookTypeMapper.Map);
         }
 
         public async Task<BookType?> GetById(Guid id)
         {
-            var bookType = await _context.BookTypes.AsNoTracking().Where(bt => bt.Id == id).FirstOrDefaultAsync();
+            var bookType = await _context.BookTypes
+                .AsNoTracking()
+                .Where(bt => bt.Id == id)
+                .Include(bt => bt.Series)
+                .Include(bt => bt.PublishingHouse) 
+                .Include(bt => bt.Authors)
+                .FirstOrDefaultAsync();
             
             return bookType == null ?
                 null :
