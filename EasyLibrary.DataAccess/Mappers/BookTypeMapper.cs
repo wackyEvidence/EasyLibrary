@@ -31,7 +31,7 @@ namespace EasyLibrary.DataAccess.Mappers
                 source.Title, 
                 _publishingHouseMapper.Value.Map(source.PublishingHouse), 
                 _bookSeriesMapper.Value.Map(source.Series), 
-                source.Copies.ConvertAll(_bookCopyMapper.Value.Map), 
+                new List<BookCopy>(), 
                 source.Authors.ConvertAll(_bookAuthorMapper.Value.Map),
                 source.Cover,
                 source.PublishingYear, 
