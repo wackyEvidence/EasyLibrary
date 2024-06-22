@@ -12,6 +12,36 @@ export const validateSize = (fieldValue, maxSize) => {
     return '';
 };
 
+export const validateNumber = (fieldValue) => {
+    if (!fieldValue) {
+        return 'Пожалуйста, заполните это поле.';
+    }
+    if (!/^\d+$/.test(fieldValue)) {
+        return 'Пожалуйста, введите число.'
+    }
+    return '';
+}
+
+export const validateYear = (fieldValue) => {
+    if (!fieldValue) {
+        return 'Пожалуйста, заполните это поле.';
+    }
+    if (!/^\d{4}$/.test(fieldValue)) {
+        return 'Пожалуйста, укажите год в верном формате (4 цифры без пробелов).'
+    }
+    return '';
+}
+
+export const validateISBN = (fieldValue) => {
+    if (!fieldValue) {
+        return 'Пожалуйста, заполните это поле.';
+    }
+    if (!/^\d{13}$/.test(fieldValue)) {
+        return 'Пожалуйста, укажите ISBN в верном формате (13 цифр без пробелов).'
+    }
+    return '';
+}
+
 export const validateEmail = (email) => {
     if (!email) {
         return 'Пожалуйста, введите адрес электронной почты.';
