@@ -1,3 +1,4 @@
+// TODO: refactor
 export const validateRequired = (fieldValue, customMessage = '') => {
     if (!fieldValue) {
         return customMessage || "Пожалуйста, заполните это поле.";
@@ -28,6 +29,16 @@ export const validateYear = (fieldValue) => {
     }
     if (!/^\d{4}$/.test(fieldValue)) {
         return 'Пожалуйста, укажите год в верном формате (4 цифры без пробелов).'
+    }
+    return '';
+}
+
+export const validateInventoryNumber = (fieldValue) => {
+    if (!fieldValue) {
+        return 'Пожалуйста, заполните это поле.';
+    }
+    if (!/^\d{10}$/.test(fieldValue)) {
+        return 'Пожалуйста, укажите инвентарный номер в верном формате (10 цифр без пробелов).'
     }
     return '';
 }
