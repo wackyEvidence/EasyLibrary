@@ -13,5 +13,6 @@
         public string Email { get; set; } = string.Empty;
         public string PhoneNumber { get; set; } = string.Empty;
         public bool IsAdmin { get; set; }
+        public List<BookIssuanceEntity> BookIssuances { get; set; } = new List<BookIssuanceEntity>();
     }
 }

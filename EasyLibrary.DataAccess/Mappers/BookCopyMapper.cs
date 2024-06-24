@@ -16,10 +16,11 @@ namespace EasyLibrary.DataAccess.Mappers
         public BookCopy Map(BookCopyEntity source)
         {
             return BookCopy.Create(
-                source.Id, 
-                _bookTypeMapper.Value.Map(source.Type), 
+                source.Id,
+                _bookTypeMapper.Value.Map(source.Type),
                 source.InventoryNumber,
-                source.Status
+                source.Status,
+                new List<BookIssuance>()
             );
         }
     }

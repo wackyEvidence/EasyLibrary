@@ -11,6 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddCors();
 builder.Services.AddControllers();
+
 builder.Services.AddDbContext<EasyLibraryDbContext>(options =>
 {
     options.UseNpgsql(builder.Configuration.GetConnectionString(nameof(EasyLibraryDbContext)));
@@ -40,6 +41,12 @@ builder.Services.AddTransient(provider =>
 {
     return new Lazy<IMapper<BookCopy, BookCopyEntity>>(
         () => provider.GetRequiredService<IMapper<BookCopy, BookCopyEntity>>());
+});
+
+builder.Services.AddTransient(provider =>
+{
+    return new Lazy<IMapper<BookIssuanceEntity, BookIssuance>>(
+        () => provider.GetRequiredService<IMapper<BookIssuanceEntity, BookIssuance>>());
 });
 
 builder.Services.AddTransient(provider =>
@@ -78,20 +85,30 @@ builder.Services.AddTransient(provider =>
         () => provider.GetRequiredService<IMapper<PublishingHouse, PublishingHouseEntity>>());
 });
 
+builder.Services.AddTransient(provider =>
+{
+    return new Lazy<IMapper<UserEntity, User>>(
+        () => provider.GetRequiredService<IMapper<UserEntity, User>>());
+});
+
 builder.Services.AddTransient<IMapper<BookAuthorEntity, BookAuthor>, BookAuthorMapper>();
 builder.Services.AddTransient<IMapper<BookAuthor, BookAuthorEntity>, BookAuthorEntityMapper>();
 builder.Services.AddTransient<IMapper<BookCopyEntity, BookCopy>, BookCopyMapper>();
 builder.Services.AddTransient<IMapper<BookCopy, BookCopyEntity>, BookCopyEntityMapper>();
+builder.Services.AddTransient<IMapper<BookIssuanceEntity, BookIssuance>, BookIssuanceMapper>(); 
 builder.Services.AddTransient<IMapper<BookSeriesEntity, BookSeries>, BookSeriesMapper>();
 builder.Services.AddTransient<IMapper<BookSeries, BookSeriesEntity>, BookSeriesEntityMapper>();
 builder.Services.AddTransient<IMapper<BookTypeEntity, BookType>, BookTypeMapper>();
 builder.Services.AddTransient<IMapper<BookType, BookTypeEntity>, BookTypeEntityMapper>();
 builder.Services.AddTransient<IMapper<PublishingHouseEntity, PublishingHouse>, PublishingHouseMapper>();
 builder.Services.AddTransient<IMapper<PublishingHouse, PublishingHouseEntity>, PublishingHouseEntityMapper>();
+builder.Services.AddTransient<IMapper<UserEntity, User>, UserMapper>();
 #endregion
 
 #region Services 
 builder.Services.AddScoped<IBookAuthorsService, BookAuthorsService>();
+builder.Services.AddScoped<IBookCopiesService, BookCopiesService>();    
+builder.Services.AddScoped<IBookIssuancesService, BookIssuancesService>();
 builder.Services.AddScoped<IBookSeriesService, BookSeriesService>();
 builder.Services.AddScoped<IBookTypesService, BookTypesService>();
 builder.Services.AddScoped<IPublishingHouseService, PublishingHousesService>();
@@ -100,6 +117,8 @@ builder.Services.AddScoped<IUsersService, UsersService>();
 
 #region Repositories 
 builder.Services.AddScoped<IBookAuthorsRepository, BookAuthorsRepository>();
+builder.Services.AddScoped<IBookCopiesRepository, BookCopiesRepository>();
+builder.Services.AddScoped<IBookIssuancesRepository, BookIssuancesRepository>();
 builder.Services.AddScoped<IBookSeriesRepository, BookSeriesRepository>();
 builder.Services.AddScoped<IBookTypesRepository, BookTypesRepository>();
 builder.Services.AddScoped<IPublishingHouseRepository, PublishingHouseRepository>();
@@ -109,7 +128,6 @@ builder.Services.AddScoped<IUsersRepository, UsersRepository>();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 app.UseStaticFiles();
 app.UseAuthorization();
 app.UseCors(builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());

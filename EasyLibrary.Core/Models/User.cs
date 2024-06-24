@@ -8,7 +8,7 @@
 
         private User(Guid id, string name, string surname, string? patronymic, string passportNumber,
             string passportSeries, DateOnly birthDate, DateOnly registrationDate, string email, 
-            string phoneNumber, bool isAdmin)
+            string phoneNumber, bool isAdmin, List<BookIssuance> bookIssuances)
         {
             Id = id;
             Name = name;
@@ -21,6 +21,7 @@
             Email = email;
             PhoneNumber = phoneNumber;
             IsAdmin = isAdmin;
+            BookIssuances = bookIssuances;
         }
 
         public Guid Id { get; }
@@ -34,10 +35,11 @@
         public string Email { get; } = string.Empty;
         public string PhoneNumber { get; } = string.Empty;
         public bool IsAdmin { get; }
+        public List<BookIssuance> BookIssuances { get; }
 
         public static User Create(Guid id, string name, string surname, string? patronymic, string passportNumber,
             string passportSeries, DateOnly birthDate, DateOnly registrationDate, string email,
-            string phoneNumber, bool isAdmin)
+            string phoneNumber, bool isAdmin, List<BookIssuance> bookIssuances)
         { 
             if (string.IsNullOrEmpty(name))
                 throw new ArgumentException("name was null or empty");
@@ -63,8 +65,8 @@
 
             return new User(
                 id, name, surname, patronymic, passportNumber, passportSeries, 
-                birthDate, registrationDate, email, phoneNumber, isAdmin
-                );
+                birthDate, registrationDate, email, phoneNumber, isAdmin, bookIssuances
+            );
         }
     }
 }

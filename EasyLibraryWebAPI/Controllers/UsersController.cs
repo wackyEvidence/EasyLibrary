@@ -1,5 +1,6 @@
 ﻿using EasyLibrary.API.Contracts.User;
 using EasyLibrary.Core.Abstractions;
+using EasyLibrary.Core.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Primitives;
 
@@ -105,7 +106,8 @@ namespace EasyLibrary.API.Controllers
                     DateOnly.Parse(DateTime.Now.ToShortDateString()),
                     request.Email,
                     request.PhoneNumber,
-                    request.IsAdmin
+                    request.IsAdmin, 
+                    new List<BookIssuance>()
                     );
 
                 var userId = await _usersService.CreateUser(user);

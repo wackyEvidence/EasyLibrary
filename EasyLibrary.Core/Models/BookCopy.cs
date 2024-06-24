@@ -9,20 +9,22 @@ namespace EasyLibrary.Core.Models
     {
         public const int INVENTORY_NUMBER_LENGTH = 10; 
 
-        private BookCopy(Guid id, BookType type, string inventoryNumber, BookStatus status)
+        private BookCopy(Guid id, BookType type, string inventoryNumber, BookStatus status, List<BookIssuance> bookIssuances)
         {
             Id = id;
             Type = type;
             InventoryNumber = inventoryNumber;
-            Status = status;
+            Status = status; 
+            BookIssuances = bookIssuances;  
         }
 
         public Guid Id { get; }
         public BookType Type { get; }
         public string InventoryNumber { get; }
         public BookStatus Status { get; }
+        public List<BookIssuance> BookIssuances { get; }
 
-        public static BookCopy Create(Guid id, BookType type, string inventoryNumber, BookStatus status)
+        public static BookCopy Create(Guid id, BookType type, string inventoryNumber, BookStatus status, List<BookIssuance> bookIssuances)
         {
             if(type == null) 
                 throw new ArgumentNullException(nameof(type));
@@ -32,7 +34,7 @@ namespace EasyLibrary.Core.Models
             else if (!Regex.IsMatch(inventoryNumber, $"^\\d{{{INVENTORY_NUMBER_LENGTH}}}$"))
                 throw new ArgumentOutOfRangeException(nameof(inventoryNumber), inventoryNumber, "inventory number must be exactly 10 digits long");
 
-            return new BookCopy(id, type, inventoryNumber, status);
+            return new BookCopy(id, type, inventoryNumber, status, bookIssuances);
         }
     }
 }

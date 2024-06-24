@@ -14,6 +14,7 @@ namespace EasyLibrary.DataAccess
 
         public DbSet<BookAuthorEntity> BookAuthorEntity { get; set; }
         public DbSet<BookCopyEntity> BookCopies { get; set; }
+        public DbSet<BookIssuanceEntity> BookIssuances { get; set; }  
         public DbSet<BookSeriesEntity> BookSeriesEntity { get; set; }
         public DbSet<BookTypeEntity> BookTypes { get; set; }
         public DbSet<PublishingHouseEntity> PublishingHouseEntity { get; set; }
@@ -30,6 +31,7 @@ namespace EasyLibrary.DataAccess
             base.OnModelCreating(modelBuilder);
             modelBuilder.ApplyConfiguration(new BookAuthorConfiguration());
             modelBuilder.ApplyConfiguration(new BookCopyConfiguration());
+            modelBuilder.ApplyConfiguration(new BookIssuanceConfiguration());
             modelBuilder.ApplyConfiguration(new BookSeriesConfiguration());
             modelBuilder.ApplyConfiguration(new BookTypeConfiguration());
             modelBuilder.ApplyConfiguration(new PublishingHouseConfiguration());

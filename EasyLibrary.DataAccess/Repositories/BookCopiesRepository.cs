@@ -9,19 +9,20 @@ namespace EasyLibrary.DataAccess.Repositories
     {
         private readonly EasyLibraryDbContext _context;
         private readonly IMapper<BookCopyEntity, BookCopy> _bookCopyMapper;
-        private readonly IMapper<BookTypeEntity, BookType> _bookTypeMapper;  
-        private readonly IMapper<BookType, BookTypeEntity> _bookTypeEntityMapper;  
+        private readonly IMapper<BookIssuanceEntity, BookIssuance> _bookIssuanceMapper;
+        private readonly IMapper<BookTypeEntity, BookType> _bookTypeMapper;   
 
         public BookCopiesRepository(
             EasyLibraryDbContext context, 
             IMapper<BookCopyEntity, BookCopy> bookCopyMapper,
-            IMapper<BookTypeEntity, BookType> bookTypeMapper, 
-            IMapper<BookType, BookTypeEntity> bookTypeEntityMapper)
+            IMapper<BookTypeEntity, BookType> bookTypeMapper,
+            IMapper<BookIssuanceEntity, BookIssuance> bookIssuanceMapper
+            )
         {
             _context = context; 
             _bookCopyMapper = bookCopyMapper;
-            _bookTypeMapper = bookTypeMapper;   
-            _bookTypeEntityMapper = bookTypeEntityMapper;   
+            _bookIssuanceMapper = bookIssuanceMapper;
+            _bookTypeMapper = bookTypeMapper;     
         }
 
         /// <summary>
@@ -85,16 +86,14 @@ namespace EasyLibrary.DataAccess.Repositories
                 .AsNoTracking()
                 .Where(bc => bc.Id == id)
                 .Include(bc => bc.Type)
+                .Include(bc => bc.Type.PublishingHouse)
+                .Include(bc => bc.Type.Series)  
+                .Include (bc => bc.Type.Authors)
                 .FirstOrDefaultAsync();
 
             return bookCopy == null ?
                 null :
-                BookCopy.Create(
-                    bookCopy.Id,
-                    _bookTypeMapper.Map(bookCopy.Type),
-                    bookCopy.InventoryNumber,
-                    bookCopy.Status
-                );
+                _bookCopyMapper.Map(bookCopy);
         }
 
         public async Task<Guid> Update(BookCopy bookCopy)

@@ -64,7 +64,8 @@ namespace EasyLibrary.Application.Services
                 id = id == default ? Guid.Empty : id,
                 bookType,
                 request.InventoryNumber,
-                (BookStatus)request.Status
+                (BookStatus)request.Status,
+                new List<BookIssuance>()
             );
 
             return bookCopy;

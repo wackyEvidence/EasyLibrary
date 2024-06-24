@@ -8,35 +8,31 @@ namespace EasyLibrary.DataAccess.Repositories
     public class UsersRepository : IUsersRepository
     {
         private readonly EasyLibraryDbContext _context;
+        private readonly IMapper<UserEntity, User> _userMapper;
 
-        public UsersRepository(EasyLibraryDbContext context)
+        public UsersRepository(EasyLibraryDbContext context, IMapper<UserEntity, User> userMapper)
         {
             _context = context;
+            _userMapper = userMapper;
         }
 
         public async Task<User?> GetById(Guid id)
         {
-            var user = await _context.Users.AsNoTracking().Where(u => u.Id == id).FirstOrDefaultAsync();
-            
-            return user == null?
-                null : 
-                User.Create(user.Id, user.Name, user.Surname, user.Patronymic, user.PassportNumber,
-                    user.PassportSeries, user.BirthDate, user.RegistrationDate, user.Email,
-                    user.PhoneNumber, user.IsAdmin);
+            var userEntity = await _context.Users
+                .AsNoTracking()
+                .Where(u => u.Id == id)
+                .FirstOrDefaultAsync();
+
+            return userEntity == null ?
+                null :
+                _userMapper.Map(userEntity);
         }
 
         public async Task<List<User>> Get()
         {
             var userEntities = await _context.Users.AsNoTracking().ToListAsync();
 
-            var users = userEntities
-                .Select(u => User.Create(
-                    u.Id, u.Name, u.Surname, u.Patronymic, u.PassportNumber,
-                    u.PassportSeries, u.BirthDate, u.RegistrationDate, u.Email,
-                    u.PhoneNumber, u.IsAdmin))
-                .ToList();
-
-            return users;
+            return userEntities.ConvertAll(_userMapper.Map);
         }
 
         public async Task<Guid> Create(User user)
@@ -76,7 +72,9 @@ namespace EasyLibrary.DataAccess.Repositories
                         .SetProperty(u => u.BirthDate, birthDate)
                         .SetProperty(u => u.Email, email)
                         .SetProperty(u => u.PhoneNumber, phoneNumber)
-                        .SetProperty(u => u.IsAdmin, isAdmin));
+                        .SetProperty(u => u.IsAdmin, isAdmin)
+                    );
+
             return id;
         }
 

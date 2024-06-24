@@ -9,5 +9,6 @@ namespace EasyLibrary.DataAccess.Entites
         public BookTypeEntity Type { get; set; } = null!;
         public string InventoryNumber { get; set; } = string.Empty;
         public BookStatus Status { get; set; }
+        public List<BookIssuanceEntity> BookIssuances { get; set; } = new List<BookIssuanceEntity>();
     }
 }
