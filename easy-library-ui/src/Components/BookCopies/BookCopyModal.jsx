@@ -144,11 +144,9 @@ const BookCopyModal = ({ show, bookCopy, bookTypeOptions, handleClose, handleSav
                                             isSearchable={false}
                                             isDisabled
                                         />
-                                        {formErrors.cover && isSubmitted && (
-                                            <div className="invalid-feedback d-block">
-                                                {formErrors.cover}
-                                            </div>
-                                        )}
+                                        <div id="statusHelpBlock" className="form-text">
+                                            Значение поля изменяется при оформлении выдачи или возврата этого экземпляра.
+                                        </div>
                                     </div>
                                 </div>
 
