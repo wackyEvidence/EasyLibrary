@@ -1,6 +1,4 @@
-﻿using EasyLibrary.API.Contracts.User;
-using EasyLibrary.Application.Services;
-using EasyLibrary.Core.Abstractions;
+﻿using EasyLibrary.Core.Abstractions;
 using EasyLibrary.DTO.BookTypes;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Primitives;
