@@ -20,6 +20,16 @@ class UserService {
         return UserService.handleResponse(response);
     }
 
+    static getUserRegistrationStats = async () => {
+        const response = await fetch(`${API_URL}/users/stats?type=registrations`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+        return UserService.handleResponse(response);
+    };
+
     // type: full - все поля, display - только нужные для отображения в списке
     static getAllUsers = async (type) => {
         const response = await fetch(`${API_URL}/users`, {

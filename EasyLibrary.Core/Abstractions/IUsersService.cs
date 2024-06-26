@@ -1,9 +1,11 @@
-﻿using EasyLibrary.Core.Models;
+﻿using EasyLibrary.Core.Contracts.User;
+using EasyLibrary.Core.Models;
 
 namespace EasyLibrary.Core.Abstractions
 {
     public interface IUsersService
     {
+        Task<List<UserRegistrationStatsResponseItem>> GetUserRegistrationStats();
         Task<Guid> CreateUser(User user);
         Task<Guid> DeleteUser(Guid id);
         Task<User> GetUserById(Guid id);

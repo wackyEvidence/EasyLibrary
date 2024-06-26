@@ -1,5 +1,5 @@
-﻿using EasyLibrary.API.Contracts.User;
-using EasyLibrary.Core.Abstractions;
+﻿using EasyLibrary.Core.Abstractions;
+using EasyLibrary.Core.Contracts.User;
 using EasyLibrary.Core.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Primitives;
@@ -89,6 +89,20 @@ namespace EasyLibrary.API.Controllers
             else
                 return BadRequest("Expected \"Type\" header");
         }
+
+        [HttpGet("stats")]
+        public async Task<ActionResult<UserRegistrationStatsResponseItem>> GetUserRegistrationStats([FromQuery] string type)
+        {
+            switch (type)
+            {
+                case "registrations":
+                    var stats = await _usersService.GetUserRegistrationStats();
+                    return Ok(stats);
+                default:
+                    return BadRequest("invalid stats type parameter");
+            }
+        }
+
 
         [HttpPost]
         public async Task<ActionResult<Guid>> CreateUser([FromBody] UserRequest request)

@@ -1,6 +1,7 @@
 ﻿using EasyLibrary.Application.Exceptions;
 using EasyLibrary.Core.Models;
 using EasyLibrary.Core.Abstractions;
+using EasyLibrary.Core.Contracts.User;
 
 namespace EasyLibrary.Application.Services
 {
@@ -39,6 +40,14 @@ namespace EasyLibrary.Application.Services
         public async Task<Guid> DeleteUser(Guid id)
         {
             return await _usersRepository.Delete(id);
+        }
+
+        public async Task<List<UserRegistrationStatsResponseItem>> GetUserRegistrationStats()
+        {
+            var users = await _usersRepository.Get();
+            return users.GroupBy(u => u.RegistrationDate)
+                             .Select(g => new UserRegistrationStatsResponseItem(g.Key, g.Count()))
+                             .ToList();
         }
     }
 }
