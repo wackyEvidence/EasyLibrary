@@ -1,6 +1,5 @@
 ﻿using EasyLibrary.Core.Abstractions;
 using EasyLibrary.Core.Contracts.User;
-using EasyLibrary.Core.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Primitives;
 
@@ -100,37 +99,6 @@ namespace EasyLibrary.API.Controllers
                     return Ok(stats);
                 default:
                     return BadRequest("invalid stats type parameter");
-            }
-        }
-
-
-        [HttpPost]
-        public async Task<ActionResult<Guid>> CreateUser([FromBody] UserRequest request)
-        {
-            try
-            {
-                var user = Core.Models.User.Create(
-                    Guid.NewGuid(),
-                    request.Name,
-                    request.Surname,
-                    request.Patronymic,
-                    request.PassportNumber,
-                    request.PassportSeries,
-                    request.BirthDate,
-                    DateOnly.Parse(DateTime.Now.ToShortDateString()),
-                    request.Email,
-                    request.PhoneNumber,
-                    request.IsAdmin, 
-                    new List<BookIssuance>()
-                    );
-
-                var userId = await _usersService.CreateUser(user);
-
-                return Ok(userId);
-            }
-            catch(Exception ex)
-            {
-                return BadRequest(ex.Message);
             }
         }
 

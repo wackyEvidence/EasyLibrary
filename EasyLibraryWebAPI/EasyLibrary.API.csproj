@@ -17,6 +17,7 @@
     <ProjectReference Include="..\EasyLibrary.Application\EasyLibrary.Application.csproj" />
     <ProjectReference Include="..\EasyLibrary.Core\EasyLibrary.Core.csproj" />
     <ProjectReference Include="..\EasyLibrary.DataAccess\EasyLibrary.DataAccess.csproj" />
+    <ProjectReference Include="..\EasyLibrary.Infrastructure\EasyLibrary.Infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>

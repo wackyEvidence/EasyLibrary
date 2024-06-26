@@ -16,6 +16,16 @@ namespace EasyLibrary.DataAccess.Repositories
             _userMapper = userMapper;
         }
 
+        public async Task<User> GetByEmail(string email)
+        {
+            var userEntity = await _context.Users
+                .AsNoTracking()
+                .Where(u => u.Email == email)
+                .FirstOrDefaultAsync() ?? throw new Exception();
+
+            return _userMapper.Map(userEntity);
+        }
+
         public async Task<User?> GetById(Guid id)
         {
             var userEntity = await _context.Users
@@ -47,6 +57,7 @@ namespace EasyLibrary.DataAccess.Repositories
                 BirthDate = user.BirthDate,
                 RegistrationDate = user.RegistrationDate,
                 Email = user.Email,
+                PasswordHash = user.PasswordHash,
                 PhoneNumber = user.PhoneNumber,
                 IsAdmin = user.IsAdmin
             };
@@ -58,8 +69,8 @@ namespace EasyLibrary.DataAccess.Repositories
         }
 
         public async Task<Guid> Update(
-        Guid id, string name, string surname, string? patronymic, string passportNumber,
-            string passportSeries, DateOnly birthDate, string email, string phoneNumber, bool isAdmin)
+        Guid id, string name, string? surname, string? patronymic, string? passportNumber,
+            string? passportSeries, DateOnly? birthDate, string email, string? phoneNumber, bool isAdmin)
         {
             await _context.Users
                     .Where(u => u.Id == id)

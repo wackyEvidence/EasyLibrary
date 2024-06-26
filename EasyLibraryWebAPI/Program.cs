@@ -1,14 +1,17 @@
 using EasyLibrary.Application.Services;
 using EasyLibrary.Core.Abstractions;
+using EasyLibrary.Core.Abstractions.Auth;
 using EasyLibrary.Core.Models;
 using EasyLibrary.DataAccess;
 using EasyLibrary.DataAccess.Entites;
 using EasyLibrary.DataAccess.Mappers;
 using EasyLibrary.DataAccess.Repositories;
+using EasyLibrary.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.Configure<JwtOptions>(builder.Configuration.GetSection(nameof(JwtOptions)));   
 builder.Services.AddCors();
 builder.Services.AddControllers();
 
@@ -113,6 +116,8 @@ builder.Services.AddScoped<IBookSeriesService, BookSeriesService>();
 builder.Services.AddScoped<IBookTypesService, BookTypesService>();
 builder.Services.AddScoped<IPublishingHouseService, PublishingHousesService>();
 builder.Services.AddScoped<IUsersService, UsersService>();
+builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
+builder.Services.AddScoped<IJwtProvider, JwtProvider>();    
 #endregion
 
 #region Repositories 
@@ -129,6 +134,7 @@ builder.Services.AddScoped<IUsersRepository, UsersRepository>();
 var app = builder.Build();
 
 app.UseStaticFiles();
+app.UseAuthentication();
 app.UseAuthorization();
 app.UseCors(builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 app.MapControllers();
