@@ -1,4 +1,4 @@
-﻿namespace EasyLibrary.API.Contracts.User
+﻿namespace EasyLibrary.Core.Contracts.User
 {
     public record UserResponseFull(
         Guid Id,
@@ -14,3 +14,5 @@
         bool IsAdmin
     );
 }
+
+

@@ -1,4 +1,4 @@
-﻿namespace EasyLibrary.API.Contracts.User
+﻿namespace EasyLibrary.Core.Contracts.User
 {
     public record UserResponseDisplay(
         Guid Id,
@@ -8,5 +8,7 @@
         string Email,
         DateOnly RegistrationDate,
         bool IsAdmin
-        );
+    );
 }
+
+

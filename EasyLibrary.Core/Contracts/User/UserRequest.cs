@@ -1,4 +1,4 @@
-﻿namespace EasyLibrary.API.Contracts.User
+﻿namespace EasyLibrary.Core.Contracts.User
 {
     public record UserRequest(
         string Name,
@@ -10,5 +10,5 @@
         string Email,
         string PhoneNumber,
         bool IsAdmin
-        );
+    );
 }
