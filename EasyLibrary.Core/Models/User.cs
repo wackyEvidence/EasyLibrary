@@ -1,4 +1,6 @@
-﻿namespace EasyLibrary.Core.Models
+﻿using System.ComponentModel.Design.Serialization;
+
+namespace EasyLibrary.Core.Models
 {
     public class User
     {
@@ -6,9 +8,17 @@
         public const int PASSPORT_NUMBER_LENGTH = 6;
         public const int PHONE_NUMBER_LENGTH = 16;
 
-        private User(Guid id, string name, string surname, string? patronymic, string passportNumber,
-            string passportSeries, DateOnly birthDate, DateOnly registrationDate, string email, 
-            string phoneNumber, bool isAdmin, List<BookIssuance> bookIssuances)
+        private User(Guid id, string name, string email, string passwordHash)
+        {
+            Id = id; 
+            Name = name; 
+            Email = email; 
+            PasswordHash = passwordHash;
+        }
+
+        private User(Guid id, string name, string? surname, string? patronymic, string? passportNumber,
+            string? passportSeries, DateOnly? birthDate, DateOnly registrationDate, string email, 
+            string passwordHash, string? phoneNumber, bool isAdmin, List<BookIssuance> bookIssuances)
         {
             Id = id;
             Name = name;
@@ -19,54 +29,51 @@
             BirthDate = birthDate;
             RegistrationDate = registrationDate;
             Email = email;
+            PasswordHash = passwordHash;
             PhoneNumber = phoneNumber;
             IsAdmin = isAdmin;
             BookIssuances = bookIssuances;
         }
 
         public Guid Id { get; }
-        public string Name { get; } = string.Empty;
-        public string Surname { get; } = string.Empty;
-        public string? Patronymic { get; }
-        public string PassportNumber { get; } = string.Empty;
-        public string PassportSeries { get; } = string.Empty;
-        public DateOnly BirthDate { get; }
-        public DateOnly RegistrationDate { get; }
-        public string Email { get; } = string.Empty;
-        public string PhoneNumber { get; } = string.Empty;
-        public bool IsAdmin { get; }
-        public List<BookIssuance> BookIssuances { get; }
+        public string Name { get; }
+        public string? Surname { get; } = null;
+        public string? Patronymic { get; } = null;
+        public string? PassportNumber { get; } = null;
+        public string? PassportSeries { get; } = null; 
+        public DateOnly? BirthDate { get; } = null;
+        public DateOnly RegistrationDate { get; } = DateOnly.FromDateTime(DateTime.Now);
+        public string Email { get; }
+        public string PasswordHash { get; }
+        public string? PhoneNumber { get; } = null;
+        public bool IsAdmin { get; } = false; 
+        public List<BookIssuance> BookIssuances { get; } = new List<BookIssuance>();
 
-        public static User Create(Guid id, string name, string surname, string? patronymic, string passportNumber,
-            string passportSeries, DateOnly birthDate, DateOnly registrationDate, string email,
-            string phoneNumber, bool isAdmin, List<BookIssuance> bookIssuances)
+        public static User Create(Guid id, string name, string? surname, string? patronymic, string? passportNumber,
+            string? passportSeries, DateOnly? birthDate, DateOnly registrationDate, string email, string passwordHash,
+            string? phoneNumber, bool isAdmin, List<BookIssuance> bookIssuances)
         { 
             if (string.IsNullOrEmpty(name))
                 throw new ArgumentException("name was null or empty");
 
-            if (string.IsNullOrEmpty(surname))
-                throw new ArgumentException("surname was null or empty");
-
-            if (passportNumber == null)
-                throw new ArgumentNullException(nameof(passportNumber));
-            else if(passportNumber.Length != PASSPORT_NUMBER_LENGTH)
+            if(passportNumber != null && passportNumber.Length != PASSPORT_NUMBER_LENGTH)
                 throw new ArgumentOutOfRangeException(nameof(passportNumber), passportNumber, $"invalid passportNumber length. expected: {PASSPORT_NUMBER_LENGTH}, actual: {passportNumber.Length}");
 
-            if (passportSeries == null)
-                throw new ArgumentNullException(nameof(passportSeries));
-            else if (passportSeries.Length != PASSPORT_SERIES_LENGTH)
+            if (passportSeries != null && passportSeries.Length != PASSPORT_SERIES_LENGTH)
                 throw new ArgumentOutOfRangeException(nameof(passportSeries), passportSeries, $"invalid passportSeries length. expected: {PASSPORT_SERIES_LENGTH}, actual: {passportSeries.Length}");
 
-            if (phoneNumber == null)
-                throw new ArgumentNullException(nameof(phoneNumber));
-            else if (phoneNumber.Length != PHONE_NUMBER_LENGTH)
+            if (phoneNumber != null && phoneNumber.Length != PHONE_NUMBER_LENGTH)
                 throw new ArgumentOutOfRangeException(nameof(phoneNumber), phoneNumber, $"invalid phoneNumber length. expected: {PHONE_NUMBER_LENGTH}, actual: {phoneNumber.Length}");
-            
 
             return new User(
                 id, name, surname, patronymic, passportNumber, passportSeries, 
-                birthDate, registrationDate, email, phoneNumber, isAdmin, bookIssuances
+                birthDate, registrationDate, email, passwordHash, phoneNumber, isAdmin, bookIssuances
             );
+        }
+
+        public static User Create(Guid id, string name, string email, string passwordHash)
+        {
+            return new User(id, name, email, passwordHash);
         }
     }
 }

@@ -3,7 +3,7 @@
     public record UserResponseDisplay(
         Guid Id,
         string Name,
-        string Surname,
+        string? Surname,
         string? Patronymic,
         string Email,
         DateOnly RegistrationDate,

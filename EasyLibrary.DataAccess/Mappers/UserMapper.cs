@@ -18,6 +18,7 @@ namespace EasyLibrary.DataAccess.Mappers
                 source.BirthDate,
                 source.RegistrationDate,
                 source.Email,
+                source.PasswordHash,
                 source.PhoneNumber,
                 source.IsAdmin,
                 new List<BookIssuance>()
